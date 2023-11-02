@@ -1,8 +1,8 @@
 const { Thought, User } = require('../models'); // Import your Thought and User models
 
-const thoughtController = {
+module.exports  = {
   // Get all thoughts
-  getAllThoughts: async (req, res) => {
+  async getAllThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
       res.json(thoughts);
@@ -12,7 +12,7 @@ const thoughtController = {
   },
 
   // Get a single thought by its _id
-  getThoughtById: async (req, res) => {
+  async getThoughtById(req, res) {
     try {
       const { thoughtId } = req.params;
       const thought = await Thought.findById(thoughtId);
@@ -26,7 +26,7 @@ const thoughtController = {
   },
 
   // Create a new thought
-  createThought: async (req, res) => {
+  async createThought(req, res) {
     try {
       const { thoughtText, username, userId } = req.body;
       const thought = await Thought.create({ thoughtText, username, userId });
@@ -41,7 +41,7 @@ const thoughtController = {
   },
 
   // Update a thought by its _id
-  updateThought: async (req, res) => {
+  async updateThought(req, res) {
     try {
       const { thoughtId } = req.params;
       const { thoughtText } = req.body;
@@ -58,7 +58,7 @@ const thoughtController = {
   },
 
   // Remove a thought by its _id
-  deleteThought: async (req, res) => {
+  async deleteThought(req, res) {
     try {
       const { thoughtId } = req.params;
       const thought = await Thought.findByIdAndDelete(thoughtId);
@@ -74,7 +74,7 @@ const thoughtController = {
   },
 
   // Create a reaction stored in a single thought's reactions array field
-  createReaction: async (req, res) => {
+  async createReaction(req, res) {
     try {
       const { thoughtId } = req.params;
       const { reactionBody, username } = req.body;
@@ -96,7 +96,7 @@ const thoughtController = {
   },
 
   // Remove a reaction by the reaction's reactionId value
-  removeReaction: async (req, res) => {
+  async removeReaction(req, res) {
     try {
       const { thoughtId, reactionId } = req.params;
 
@@ -117,4 +117,4 @@ const thoughtController = {
   },
 };
 
-module.exports = thoughtController;
+
