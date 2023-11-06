@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 module.exports = {
 	async getAllUsers(req, res){
@@ -63,10 +63,11 @@ module.exports = {
 			}
 
 			// BONUS: Remove associated thoughts
-			await Thought.deleteMany({ username: user.username });
+			await Thought.deleteMany({ _id: {$in: user.thoughts} });
 
-			res.json(user);
-		} catch (err) {
+			res.status(200).json(user);
+		} catch (err) { 
+			console.log(err);
 			res.status(500).json(err);
 		}
 	},
